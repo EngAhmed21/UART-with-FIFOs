@@ -1,6 +1,6 @@
 vlib work
 
-vlog uart_tx_IF.sv states_pkg.sv uart_tx.sv ref_pkg.sv uart_tx_pkg.sv param_pkg.sv uart_tx_tb.sv uart_tx_top.sv +define+UART_tX_SIM +cover
+vlog uart_tx_IF.sv states_pkg.sv uart_tx.sv ref_pkg.sv uart_tx_pkg.sv param_pkg.sv uart_tx_tb.sv uart_tx_top.sv +define+UART_TX_SIM +cover
 
 vsim -voptargs=+acc work.uart_tx_top -cover -sv_seed random
 
