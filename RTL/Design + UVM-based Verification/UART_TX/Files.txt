@@ -1,0 +1,3 @@
+states_pkg.sv uart_ref_pkg.sv shared_pkg.sv uart_tx.sv uart_tx_IF.sv uart_tx_seq_item_pkg.sv uart_tx_config_pkg.sv 
+uart_tx_driver_pkg.sv uart_tx_sequencer_pkg.sv uart_tx_monitor_pkg.sv uart_tx_agent_pkg.sv uart_tx_coverage_pkg.sv 
+uart_tx_scoreboard_pkg.sv uart_tx_env_pkg.sv uart_tx_sequence_pkg.sv uart_tx_test_pkg.sv uart_tx_top.sv
