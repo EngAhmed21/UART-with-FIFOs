@@ -38,14 +38,14 @@ package uart_sys_pkg;
             rd_uart_past = rd_uart;
 
             // // w_data
-            // if ((tx_cs == IDLE) && (~w_data_r)) begin
-            //     w_data.rand_mode(1);
-            //     wr_uart = 1;
-            // end
-            // else begin
-            //     w_data.rand_mode(0);
-            //     wr_uart = 0;
-            // end
+            if ((tx_cs == IDLE) && (~w_data_r)) begin
+                w_data.rand_mode(1);
+                wr_uart = 1;
+            end
+            else begin
+                w_data.rand_mode(0);
+                wr_uart = 0;
+            end
 
             // w_data_r
             w_data_r = (tx_cs == IDLE);
