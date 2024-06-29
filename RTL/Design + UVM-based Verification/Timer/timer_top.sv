@@ -17,7 +17,7 @@ module timer_top;
     end
 
     initial begin
-        uvm_config_db #(virtual timer_IF #(FINAL_VALUE))::set(null, "uvm_test_top", "VIF", IF);
+        uvm_config_db #(virtual timer_IF #(FINAL_VALUE).TEST)::set(null, "uvm_test_top", "VIF", IF);
 
         run_test("timer_test");
     end
