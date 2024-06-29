@@ -37,7 +37,7 @@ package uart_sys_pkg;
             // rd_uart_past
             rd_uart_past = rd_uart;
 
-            // // w_data
+            // w_data
             if ((tx_cs == IDLE) && (~w_data_r)) begin
                 w_data.rand_mode(1);
                 wr_uart = 1;
