@@ -28,7 +28,7 @@ package FIFO_test_pkg;
             rst_seq  = FIFO_rst_sequence::type_id::create("rst_seq");
             F_config = FIFO_config::type_id::create("F_config");
 
-            if (!(uvm_config_db #(virtual FIFO_IF #(.WIDTH(WIDTH), .DEPTH(DEPTH)))::get(this, "", "VIF", F_config.FIFO_vif)))
+            if (!(uvm_config_db #(virtual FIFO_IF #(.WIDTH(WIDTH), .DEPTH(DEPTH)).TEST)::get(this, "", "VIF", F_config.FIFO_vif)))
                 `uvm_fatal("build_phase", "Test - Unable to get the virtual interface of the FIFO from uvm_config_db")
             
             uvm_config_db #(FIFO_config)::set(this, "*", "FIFO_CFG", F_config); 
