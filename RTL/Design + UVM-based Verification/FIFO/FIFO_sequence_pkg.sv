@@ -63,7 +63,7 @@ package FIFO_sequence_pkg;
                     full_seq_item.rst_n = 1;
                     full_seq_item.WE    = 1;
                     full_seq_item.RE    = 0;
-                    full_seq_item.din   = $rand();
+                    full_seq_item.din   = $random();
                 finish_item(full_seq_item);
             end
         endtask
