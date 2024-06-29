@@ -26,7 +26,7 @@ package uart_rx_test_pkg;
             rst_seq   = uart_rx_rst_sequence::type_id::create("rst_seq");
             rx_config = uart_rx_config::type_id::create("rx_config");
 
-            if (!(uvm_config_db #(virtual uart_rx_IF #(.DBIT(DBIT), .SB_TICK(SB_TICK), .BIT_WIDTH(BIT_WIDTH)))::get(this, "", "VIF", rx_config.uart_rx_vif)))
+            if (!(uvm_config_db #(virtual uart_rx_IF #(.DBIT(DBIT), .SB_TICK(SB_TICK), .BIT_WIDTH(BIT_WIDTH)).TEST)::get(this, "", "VIF", rx_config.uart_rx_vif)))
                 `uvm_fatal("build_phase", "Test - Unable to get the virtual interface of the uart_rx from uvm_config_db")
             
             uvm_config_db #(uart_rx_config)::set(this, "*", "uart_rx_CFG", rx_config); 
