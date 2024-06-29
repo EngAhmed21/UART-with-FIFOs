@@ -17,7 +17,7 @@ module uart_rx_top;
     end
 
     initial begin
-        uvm_config_db #(virtual uart_rx_IF #(.DBIT(DBIT), .SB_TICK(SB_TICK), .BIT_WIDTH(BIT_WIDTH)))::set(null, "uvm_test_top", "VIF", IF);
+        uvm_config_db #(virtual uart_rx_IF #(.DBIT(DBIT), .SB_TICK(SB_TICK), .BIT_WIDTH(BIT_WIDTH)).TEST)::set(null, "uvm_test_top", "VIF", IF);
 
         run_test("uart_rx_test");
     end
