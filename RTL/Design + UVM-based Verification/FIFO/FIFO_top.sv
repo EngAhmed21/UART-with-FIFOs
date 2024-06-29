@@ -17,7 +17,7 @@ module FIFO_top;
     end
 
     initial begin
-        uvm_config_db #(virtual FIFO_IF #(.WIDTH(WIDTH), .DEPTH(DEPTH)))::set(null, "uvm_test_top", "VIF", IF);
+        uvm_config_db #(virtual FIFO_IF #(.WIDTH(WIDTH), .DEPTH(DEPTH)).TEST)::set(null, "uvm_test_top", "VIF", IF);
 
         run_test("FIFO_test");
     end
