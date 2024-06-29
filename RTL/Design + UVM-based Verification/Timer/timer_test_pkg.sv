@@ -26,7 +26,7 @@ package timer_test_pkg;
             rst_seq = timer_rst_sequence::type_id::create("rst_seq");
             t_config = timer_config::type_id::create("t_config");
 
-            if (!(uvm_config_db #(virtual timer_IF #(FINAL_VALUE))::get(this, "", "VIF", t_config.timer_vif)))
+            if (!(uvm_config_db #(virtual timer_IF #(FINAL_VALUE).TEST)::get(this, "", "VIF", t_config.timer_vif)))
                 `uvm_fatal("build_phase", "Test - Unable to get the virtual interface of the Timer from uvm_config_db")
             
             uvm_config_db #(timer_config)::set(this, "*", "TIMER_CFG", t_config); 
