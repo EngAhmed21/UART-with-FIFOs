@@ -29,8 +29,8 @@ module uart_sys_tb (uart_sys_IF.TEST IF);
     bit [$clog2(FINAL_VALUE+1)-1:0] BRG_Q;
     bit [$clog2(DBIT)-1:0] tx_n_cnt, rx_n_cnt;
     bit [DBIT-1:0] tx_b_reg, rx_dout, r_data_ref, tx_dout;
-    bit [DBIT-1:0] TX_FIFO [0:FIFO_DEPTH-1];
-    bit [DBIT-1:0] RX_FIFO [0:FIFO_DEPTH-1];
+    bit [DBIT-1:0] TX_FIFO [FIFO_DEPTH];
+    bit [DBIT-1:0] RX_FIFO [FIFO_DEPTH];
     bit [FIFO_ADDR:0] tx_wr_ptr, tx_rd_ptr, rx_wr_ptr, rx_rd_ptr;
 
     uart_sys_rc rc;
@@ -52,14 +52,14 @@ module uart_sys_tb (uart_sys_IF.TEST IF);
         tx_s_cnt     = 'd0;      rx_cs       = IDLE;
         rx_n_cnt     = 'd0;      rx_s_cnt    = 'd0;  
         s_tick       = 0;        tx_start    = 0;   
-        tx_done      = 0;        tx_ref      = 1; 
+        tx_done      = 1;        tx_ref      = 1; 
         rx_done      = 0;        tx_full_ref = 0; 
         rx_empty_ref = 1;        rx_full     = 0;
         BRG_Q        = 0;        tx_b_reg    = 'd0;
         rx_dout      = 'd0;      r_data_ref  = 'd0;
         tx_wr_ptr    = 'd0;      tx_rd_ptr   = 'd0; 
         rx_wr_ptr    = 'd0;      rx_rd_ptr   = 'd0;
-        tx_empty     = 1;
+        tx_empty     = 1;        
 
         check_rst;
 
@@ -70,6 +70,18 @@ module uart_sys_tb (uart_sys_IF.TEST IF);
             rd_uart = rc.rd_uart;
             rx      = rc.rx;
             w_data  = rc.w_data;
+            
+            check_result (rst_n, rd_uart, wr_uart, rx, w_data);
+        end
+
+        // TX FIFO full
+        repeat (1000) begin
+            assert (rc.randomize());
+            rst_n   = rc.rst_n;
+            wr_uart = $random();
+            rd_uart = rc.rd_uart;
+            rx      = rc.rx;
+            w_data  = $random();
             
             check_result (rst_n, rd_uart, wr_uart, rx, w_data);
         end
@@ -194,7 +206,9 @@ module uart_sys_tb (uart_sys_IF.TEST IF);
 
         // tx_done
         if (!rst_n)
-            tx_done <= 0;
+            tx_done <= 1;
+        else if (tx_cs == IDLE)
+            tx_done <= 1;
         else
             tx_done <= (s_tick && (tx_cs == STOP) && (tx_s_cnt == (SB_TICK-1)));
         
