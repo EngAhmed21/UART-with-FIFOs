@@ -93,7 +93,9 @@ module uart_tx #(parameter BIT_WIDTH = 16, DBIT = 8, SB_TICK = 16) (
 
     always @(posedge clk, negedge rst_n) begin
         if (!rst_n)
-            tx_done <= 0;
+            tx_done <= 1;
+        else if (cs == IDLE)
+            tx_done <= 1;
         else
             tx_done <= (s_tick && (cs == STOP) && (s_cnt == (SB_TICK-1)));
     end
@@ -103,7 +105,7 @@ module uart_tx #(parameter BIT_WIDTH = 16, DBIT = 8, SB_TICK = 16) (
         // reset_out
         always_comb begin
             if (!rst_n) 
-                uart_tx_out_rst_a: assert final ((~tx_done) && tx);
+                uart_tx_out_rst_a: assert final (tx_done && tx);
         end
 
         // reset_internal
