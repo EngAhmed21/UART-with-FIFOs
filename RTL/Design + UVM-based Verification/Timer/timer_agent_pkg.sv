@@ -37,6 +37,8 @@ package timer_agent_pkg;
         endfunction
 
         function void connect_phase(uvm_phase phase);
+            super.connect_phase(phase);
+            
             drv.timer_vif = t_config.timer_vif;
             mon.timer_vif = t_config.timer_vif;
 
