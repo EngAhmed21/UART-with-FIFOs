@@ -29,6 +29,7 @@ package uart_sys_test_pkg;
         uart_sys_config sys_config_i;
         uart_sys_main_sequence main_seq;
         uart_sys_rst_sequence rst_seq;
+        uart_sys_full_sequence full_seq;
 
         function new(string name = "uart_sys_test", uvm_component parent = null);
             super.new(name, parent);
@@ -52,6 +53,8 @@ package uart_sys_test_pkg;
 
             main_seq  = uart_sys_main_sequence::type_id::create("main_seq");
             rst_seq   = uart_sys_rst_sequence::type_id::create("rst_seq");
+            full_seq  = uart_sys_full_sequence::type_id::create("full_seq");
+            
 
             if (!(uvm_config_db #(virtual timer_IF #(FINAL_VALUE).TEST)::get(this, "", "TIMER_IF", timer_config_i.timer_vif)))
                 `uvm_fatal("build_phase", "Test - Unable to get the virtual interface of the timer from uvm_config_db")
@@ -95,6 +98,11 @@ package uart_sys_test_pkg;
             `uvm_info("run_phase", "Stimulus generation started", UVM_LOW)
             main_seq.start(sys_env_i.agt.sqr);
             `uvm_info("run_phase", "Stimulus generation ended", UVM_LOW)
+
+            `uvm_info("run_phase", "Full Sequence started", UVM_LOW)
+            full_seq.start(sys_env_i.agt.sqr);
+            `uvm_info("run_phase", "Full Sequence ended", UVM_LOW)
+
 
             phase.drop_objection(this);
         endtask
