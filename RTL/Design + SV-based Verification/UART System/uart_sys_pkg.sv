@@ -4,9 +4,9 @@ package uart_sys_pkg;
     import ref_pkg::*;
 
     class uart_sys_rc;
-        rand bit rst_n, rx, rd_uart, wr_uart;
+        rand bit rst_n, rx, rd_uart;
         rand bit [DBIT-1:0] w_data;
-        bit rx_empty, tx_full, rd_uart_past, w_data_r;
+        bit rx_empty, tx_full, rd_uart_past, w_data_r, wr_uart;
         bit [DBIT-1:0] r_data;
 
         constraint rst_c {rst_n == 1'b1;}
