@@ -37,6 +37,8 @@ package uart_rx_agent_pkg;
         endfunction
 
         function void connect_phase(uvm_phase phase);
+            super.connect_phase(phase);
+            
             drv.uart_rx_vif = rx_config.uart_rx_vif;
             mon.uart_rx_vif = rx_config.uart_rx_vif;
 
