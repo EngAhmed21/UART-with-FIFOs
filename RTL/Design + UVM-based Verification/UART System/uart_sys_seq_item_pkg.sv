@@ -10,10 +10,9 @@ package uart_sys_seq_item_pkg;
 
         rand bit rst_n, rx, rd_uart;
         rand bit [DBIT-1:0] w_data;
-        bit rx_empty, tx_full, wr_uart;
+        bit rx_empty, tx_full, wr_uart, w_data_r, rd_uart_past;
         logic tx;
         logic [DBIT-1:0] r_data;
-        bit rd_uart_past, w_data_r;
 
         constraint rst_c {rst_n == 1'b1;}
         constraint rx_c  {
@@ -54,7 +53,6 @@ package uart_sys_seq_item_pkg;
             super.new(name);
             w_data_r = 0;
             rd_uart_past = 0;
-            rx_empty = 1;
         endfunction
 
         function string convert2string_stim();
