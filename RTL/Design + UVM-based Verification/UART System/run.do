@@ -4,7 +4,7 @@ vlog -f Files.txt +define+FIFO_SIM +define+UART_RX_SIM +define+UART_TX_SIM +cove
 
 vsim -voptargs=+acc work.uart_sys_top -cover -sv_seed random
 
-add wave -position insertpoint sim:/uart_sys_top/uart_sys_if/*
+add wave -position insertpoint sim:/uart_sys_top/sys_if/*
 
 coverage save UART_cv.ucdb -onexit
 
