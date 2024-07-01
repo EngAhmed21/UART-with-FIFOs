@@ -37,6 +37,8 @@ package FIFO_agent_pkg;
         endfunction
 
         function void connect_phase(uvm_phase phase);
+            super.connect_phase(phase);
+            
             drv.FIFO_vif = F_config.FIFO_vif;
             mon.FIFO_vif = F_config.FIFO_vif;
 
