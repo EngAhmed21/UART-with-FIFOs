@@ -1,6 +1,6 @@
 # UART-with-FIFOs
 
-This is the implemetation of a system that consists of 2 FIFOs and a UART interface. The implementation is done using SystenVerilog, and the test is done in two methods: SystemVerilog tesbench and a UVM environment. The simulation is done using QuestaSim and the synthesis is done using VIVADO.
+This is the implemetation of a system that consists of 2 FIFOs and a UART interface. The implementation is done using SystenVerilog, and the test is done in two methods: SystemVerilog tesbench and a UVM environment. The simulation is done using QuestaSim.
 
 UART means Universal Asynchronous Receiver Transmitter Protocol. UART is used for serial communication from the name itself we can understand the functions of UART, where U stands for Universal which means this protocol can be applied to any transmitter and receiver, and A is for Asynchronous which means one cannot use clock signal for communication of data and R and T refers to Receiver and Transmitter. 
 
@@ -59,6 +59,9 @@ Simulation Results:
  - Waveform
    
   ![Waveform](https://github.com/EngAhmed21/UART-with-FIFOs/assets/90782588/951b029f-a765-42ad-98c8-32e7424fdcee)
+  ![2](https://github.com/EngAhmed21/UART-with-FIFOs/assets/90782588/598759b2-c508-460a-86ae-39ea296cef18)
+  ![3](https://github.com/EngAhmed21/UART-with-FIFOs/assets/90782588/f8ee8d50-6cbe-4767-862f-0857dc302a1c)
+  ![4](https://github.com/EngAhmed21/UART-with-FIFOs/assets/90782588/f9f601d2-c15c-4e25-bb13-39429651cafd)
 
  - Transcript
    
@@ -72,7 +75,8 @@ Simulation Results:
  - Assertions
 
 ![Assertions](https://github.com/EngAhmed21/UART-with-FIFOs/assets/90782588/706b2d6c-c086-4c37-b8bb-2f232b043845)
-![Assertions2](https://github.com/EngAhmed21/UART-with-FIFOs/assets/90782588/29c49d1d-a42d-48a1-893c-d01fe3d09452)
+![Assertions2](https://github.com/EngAhmed21/UART-with-FIFOs/assets/90782588/74a57ef2-edf2-475b-bfdf-de520f87c855)
+
 
  - Coverage Directives
 
