@@ -55,6 +55,6 @@ Test Methodology:
 - Constraint randomization is used to automate the stimulus generation.                                                                                                                                                                                          
 - In the UVM environment, I use the environments of the components in the environment of the UART System to use the scoreboards and coverage collectors of the components to ease finding the source of errors.                                                                                                                                                                                          
 
-  Simulation Results:                                                                                                                                                                                                                                              
-  - Waveform
+Simulation Results:                                                                                                                                                                                                                                              
+- Waveform
   
