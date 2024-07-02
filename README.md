@@ -1,6 +1,6 @@
 # UART-with-FIFOs
 
-This is the implemetation of a system that consists of 2 FIFOs and a UART interface. The implementation is done using SystenVerilog, and the test is done in two methods: SystemVerilog tesbench and a UVM environment. The simulation is done using QuestaSim.
+This is the implemetation of a system that consists of 2 FIFOs and a UART interface. The implementation is done using SystemVerilog, and the test is done in two methods: SystemVerilog tesbench and a UVM environment. The simulation is done using QuestaSim.
 
 UART means Universal Asynchronous Receiver Transmitter Protocol. UART is used for serial communication from the name itself we can understand the functions of UART, where U stands for Universal which means this protocol can be applied to any transmitter and receiver, and A is for Asynchronous which means one cannot use clock signal for communication of data and R and T refers to Receiver and Transmitter. 
 
