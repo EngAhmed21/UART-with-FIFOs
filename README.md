@@ -57,7 +57,7 @@ Test Methodology:
 
 UVM Structure:
 
-![UVM_Structure](https://github.com/EngAhmed21/UART-with-FIFOs/assets/90782588/c5987632-6b96-4896-943a-d02bf4f4484e)
+![UVM_Structure](https://github.com/EngAhmed21/UART-with-FIFOs/assets/90782588/baa5dda5-c247-4592-ba75-a576a2eea573)
 
 Simulation Results:                                                                                                                                                                                                                                              
  - Waveform
