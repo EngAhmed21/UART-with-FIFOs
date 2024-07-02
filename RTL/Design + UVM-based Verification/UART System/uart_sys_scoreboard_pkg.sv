@@ -51,7 +51,7 @@ package uart_sys_scoreboard_pkg;
                 sb_fifo.get(sb_seq_item);
                 ref_model(sb_seq_item);
 
-                if ((sb_seq_item.tx != tx_ref) || (sb_seq_item.tx_full != tx_full_ref) || (sb_seq_item.rx_empty != rx_empty_ref) || (sb_seq_item.r_data != r_data_ref)) begin
+                if ((sb_seq_item.tx != tx_ref) || (sb_seq_item.tx_full != tx_full_ref || (sb_seq_item.rx_empty != rx_empty_ref) || (sb_seq_item.r_data != r_data_ref)) ) begin
                     `uvm_error("run_phase", $sformatf("Scoreboard - Comparison failed, Transaction received by the DUT: %0s, while the ref model out: tx_ref = %0b, tx_full_ref = %0b, rx_empty_ref = %0b, r_data_ref = %0d",
                      sb_seq_item.convert2string(), tx_ref, tx_full_ref, rx_empty_ref, r_data_ref))    
                     error++;
@@ -70,7 +70,6 @@ package uart_sys_scoreboard_pkg;
             rx_empty_ref = 1;         tx_empty     = 1;
             tx_n_cnt     = 0;         rx_n_cnt     = 0;
             tx_s_cnt_nxt = 0;         rx_s_cnt_nxt = 0;
-            tx_done      = 1;
         endtask
 
         task ref_model(uart_sys_seq_item chk_seq_item);
@@ -151,7 +150,7 @@ package uart_sys_scoreboard_pkg;
             // tx_b_reg
             if (!chk_seq_item.rst_n)
                 tx_b_reg = 0;
-            else if ((tx_s_cnt == 'd0) && (tx_cs == IDLE))
+            else if ((tx_s_cnt == 'd0) && (tx_cs == START))
                 tx_b_reg = tx_dout;
             else if (s_tick && (tx_cs == DATA) && (tx_s_cnt == (BIT_WIDTH-1)))
                 tx_b_reg = (tx_b_reg >> 1);
