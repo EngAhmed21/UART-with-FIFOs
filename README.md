@@ -13,7 +13,7 @@ UART supports full duplex communication, meaning it can send and receive data si
 ![UART2-660x403](https://github.com/EngAhmed21/UART-with-FIFOs/assets/90782588/af0449d9-670f-4df6-a112-92da997d5757)
 
 To calculate the baud rate for a UART communication:                                                                                                                                                                                                                                                                                                                
-1- For a 'normal' UART, baud == bit rate, so 115200 baud = 115200 bit rate = 11.520 kBps (assuming 8N1 which means 8 bits data + 1 start bit + 1 stop bit.                                                                                                                                                                                                                                                                 
+1- For a 'normal' UART, baud = bit rate, so 115200 baud = 115200 bit rate = 11.520 kBps (assuming 8N1 which means 8 bits data + 1 start bit + 1 stop bit.                                                                                                                                                                                                                                                                 
 2- The main formula to calculate the baud rate is: Baud rate = Bit rate / Number of bits in a baud.                                                                                                                                                                                                                                                     
 3- The actual Baud Rate is given by BR = FP / (16 * (UxBRG + 1)), where UxBRG is the UART Baud Rate Generator register value.                                                                                                                                                                                                                                               
 4- For example, if the Baud Rate is 9600 and PCLK is 60MHz, the calculation would be: U0DLL = 60000000 / (16 * 9600) = 390.625 (~390).
@@ -54,6 +54,10 @@ Test Methodology:
 - Covergroups are used to gather the functional coverage informations.                                                                                                                                                                                          
 - Constraint randomization is used to automate the stimulus generation.                                                                                                                                                                                          
 - In the UVM environment, I use the environments of the components in the environment of the UART System to use the scoreboards and coverage collectors of the components to ease finding the source of errors.                                                                                                                                                                                          
+
+UVM Structure:
+
+![UVM_Structure](https://github.com/EngAhmed21/UART-with-FIFOs/assets/90782588/c5987632-6b96-4896-943a-d02bf4f4484e)
 
 Simulation Results:                                                                                                                                                                                                                                              
  - Waveform
