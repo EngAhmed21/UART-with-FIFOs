@@ -16,7 +16,6 @@ package uart_sys_coverage_pkg;
 
             tx_full_cp:  coverpoint cov_seq_item.tx_full  iff (cov_seq_item.rst_n);
             rx_empty_cp: coverpoint cov_seq_item.rx_empty iff (cov_seq_item.rst_n);
-            r_data_cp:   coverpoint cov_seq_item.r_data   iff (cov_seq_item.rst_n && cov_seq_item.rd_uart_past);
         endgroup
 
         function new(string name = "uart_sys_coverage", uvm_component parent = null);

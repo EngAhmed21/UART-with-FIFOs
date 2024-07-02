@@ -1,52 +1,51 @@
-package FIFO_tx_agent_pkg;
+package FIFO_tx_coverage_pkg;
+    import sys_ref_pkg::*;
     import uvm_pkg::*;
     `include "uvm_macros.svh"
     import FIFO_seq_item_pkg::*;
-    import FIFO_config_pkg::*;
-    import FIFO_driver_pkg::*;
-    import FIFO_sequencer_pkg::*;
-    import FIFO_monitor_pkg::*;
 
-    class FIFO_tx_agent extends uvm_agent;
-        `uvm_component_utils(FIFO_tx_agent)
+    class FIFO_tx_coverage extends uvm_component;
+        `uvm_component_utils(FIFO_tx_coverage)
 
-        FIFO_driver drv;
-        FIFO_monitor mon;
-        FIFO_sequencer sqr;
-        
-        FIFO_config F_config;
+        FIFO_seq_item cov_seq_item;
+        uvm_analysis_export #(FIFO_seq_item) cov_exp;
+        uvm_tlm_analysis_fifo #(FIFO_seq_item) cov_fifo;
 
-        uvm_analysis_port #(FIFO_seq_item) agt_ap;
+        covergroup cvGrp;
+            option.auto_bin_max = (2**DBIT)-1;
 
-        function new(string name = "FIFO_tx_agent", uvm_component parent = null);
+            WE_cp:    coverpoint cov_seq_item.WE    iff (cov_seq_item.rst_n);
+            RE_cp:    coverpoint cov_seq_item.RE    iff (cov_seq_item.rst_n);
+            empty_cp: coverpoint cov_seq_item.empty iff (cov_seq_item.rst_n) {bins empty_bin = {1};}
+            full_cp:  coverpoint cov_seq_item.full  iff (cov_seq_item.rst_n) {bins full_bin  = {1};}
+        endgroup
+
+        function new(string name = "FIFO_tx_coverage", uvm_component parent = null);
             super.new(name, parent);
+            cvGrp = new;
         endfunction
 
         function void build_phase(uvm_phase phase);
             super.build_phase(phase);
 
-            if (!(uvm_config_db #(FIFO_config)::get(this, "", "FIFO_TX_CFG", F_config)))
-                `uvm_fatal("build_phase", "Agent - Unable to get the FIFO TX config_object from the uvm_config_db")
-
-            if (F_config.active == UVM_ACTIVE) begin
-                drv = FIFO_driver::type_id::create("drv", this);
-                sqr = FIFO_sequencer::type_id::create("sqr", this);
-            end
-            mon = FIFO_monitor::type_id::create("mon", this);
-
-            agt_ap = new("agt_ap", this);
+            cov_exp  = new("cov_exp", this);
+            cov_fifo = new("cov_fifo", this);
         endfunction
 
         function void connect_phase(uvm_phase phase);
             super.connect_phase(phase);
 
-            if (F_config.active == UVM_ACTIVE) begin
-                drv.FIFO_vif = F_config.FIFO_vif;   
-                drv.seq_item_port.connect(sqr.seq_item_export); 
-            end
-
-            mon.FIFO_vif = F_config.FIFO_vif;
-            mon.mon_ap.connect(agt_ap);
+            cov_exp.connect(cov_fifo.analysis_export);
         endfunction
+        
+        task run_phase(uvm_phase phase);
+            super.run_phase(phase);
+
+            forever begin
+                cov_fifo.get(cov_seq_item);
+
+                cvGrp.sample();
+            end
+        endtask
     endclass
 endpackage
