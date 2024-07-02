@@ -11,7 +11,7 @@ package uart_sys_seq_item_pkg;
         rand bit rst_n, rx, rd_uart, wr_uart;
         rand bit [DBIT-1:0] w_data;
         bit [DBIT-1:0] w_data_past;
-        bit rx_empty, tx_full, w_data_r, rd_uart_past, full_seq, wr_i;
+        bit rx_empty, tx_full, w_data_r, tx_full_seq, rx_full_seq, wr_i;
         bit [1:0] wr_uart_past;
         logic tx;
         logic [DBIT-1:0] r_data;
@@ -24,18 +24,20 @@ package uart_sys_seq_item_pkg;
                 rx dist {0 := 40, 1 := 60};
         }
         constraint rd_uart_c {
-            if (full_seq)
+            if (rx_full_seq)
                 (rd_uart == 0);
             else
                 (rd_uart == (~rx_empty));
         }
         constraint wr_uart_c {
-            if (full_seq)
+            if (tx_full_seq)
                 $onehot({wr_uart_past, wr_uart});
         }
         constraint w_data_c {
-            if (full_seq && (~wr_uart))
+            if (tx_full_seq && (~wr_uart))
                 (w_data == w_data_past);
+            else
+                ($countones(w_data) > 2);
         }
 
         function void pre_randomize();
@@ -45,11 +47,8 @@ package uart_sys_seq_item_pkg;
             else
                 rx.rand_mode(1);
 
-            // rd_uart_past
-            rd_uart_past = rd_uart;
-
             // w_data
-            if (~full_seq) begin
+            if (~tx_full_seq) begin
                 wr_uart.rand_mode(0);
                 if ((tx_cs == IDLE) && (~w_data_r)) begin
                     w_data.rand_mode(1);
@@ -78,9 +77,9 @@ package uart_sys_seq_item_pkg;
         function new (string name = "uart_sys_seq_item");
             super.new(name);
             w_data_r = 0;
-            rd_uart_past = 0;
             wr_i = 0;
-            full_seq = 0;
+            tx_full_seq = 0;
+            rx_full_seq = 0;
         endfunction
 
         function string convert2string_stim();
