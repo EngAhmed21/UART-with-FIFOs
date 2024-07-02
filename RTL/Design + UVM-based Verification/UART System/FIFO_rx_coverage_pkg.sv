@@ -16,13 +16,8 @@ package FIFO_rx_coverage_pkg;
 
             WE_cp:    coverpoint cov_seq_item.WE    iff (cov_seq_item.rst_n);
             RE_cp:    coverpoint cov_seq_item.RE    iff (cov_seq_item.rst_n);
-            din_cp:   coverpoint cov_seq_item.din   iff (cov_seq_item.rst_n && cov_seq_item.WE) {option.weight = 0;}
-            dout_cp:  coverpoint cov_seq_item.dout  iff (cov_seq_item.rst_n && cov_seq_item.RE) {option.weight = 0;}
             empty_cp: coverpoint cov_seq_item.empty iff (cov_seq_item.rst_n) {bins empty_bin = {1};}
-            full_cp:  coverpoint cov_seq_item.full  iff (cov_seq_item.rst_n) {
-                bins full_bin  = {1};
-                option.weight = 0;    
-            }
+            full_cp:  coverpoint cov_seq_item.full  iff (cov_seq_item.rst_n) {bins full_bin  = {1};}
         endgroup
 
         function new(string name = "FIFO_rx_coverage", uvm_component parent = null);
