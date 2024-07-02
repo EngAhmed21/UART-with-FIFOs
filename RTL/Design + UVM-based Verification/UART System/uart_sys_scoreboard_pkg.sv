@@ -16,7 +16,7 @@ package uart_sys_scoreboard_pkg;
         int error, correct;
 
         state_e tx_ns, rx_ns;
-        bit tx_full_ref, rx_empty_ref, rx_full, tx_empty, tx_start;
+        bit tx_full_ref, rx_empty_ref, tx_empty, tx_start, rx_full;
         bit [SCNT_BIT-1:0] tx_s_cnt_nxt, rx_s_cnt_nxt;
         bit [$clog2(DBIT)-1:0] tx_n_cnt, rx_n_cnt;
         bit [FIFO_ADDR:0] tx_wr_ptr, tx_rd_ptr, rx_wr_ptr, rx_rd_ptr;
@@ -156,7 +156,10 @@ package uart_sys_scoreboard_pkg;
                 tx_b_reg = (tx_b_reg >> 1);
 
             // tx_start
-            tx_start = ~tx_empty;
+            if (!chk_seq_item.rst_n)
+                tx_start = 0;
+            else
+                tx_start = ~tx_empty;
 
             //////////////////////////// FIFO_TX ////////////////////////////
             // Write
