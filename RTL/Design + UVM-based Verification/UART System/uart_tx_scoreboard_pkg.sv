@@ -134,7 +134,7 @@ package uart_tx_scoreboard_pkg;
             // b_reg_ref
             if (!chk_seq_item.rst_n)
                 b_reg_ref = 0;
-            else if ((s_cnt_ref == 'd0) && (cs_ref == IDLE))
+            else if ((s_cnt_ref == 'd0) && (cs_ref == START))
                 b_reg_ref = tx_din;
             else if (s_tick && (cs_ref == DATA) && (s_cnt_ref == (BIT_WIDTH-1)))
                 b_reg_ref = (b_reg_ref >> 1);
