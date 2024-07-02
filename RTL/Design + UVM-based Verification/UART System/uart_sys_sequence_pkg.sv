@@ -41,7 +41,7 @@ package uart_sys_sequence_pkg;
         endtask
 
         task body;
-            repeat(30000) begin
+            repeat(10000) begin
                 start_item(main_seq_item);
                     assert(main_seq_item.randomize());
                 finish_item(main_seq_item);
@@ -49,25 +49,48 @@ package uart_sys_sequence_pkg;
         endtask
     endclass
 
-    class uart_sys_full_sequence extends uvm_sequence #(uart_sys_seq_item);
-        `uvm_object_utils(uart_sys_full_sequence)
+    class uart_sys_tx_full_sequence extends uvm_sequence #(uart_sys_seq_item);
+        `uvm_object_utils(uart_sys_tx_full_sequence)
 
-        uart_sys_seq_item full_seq_item;
+        uart_sys_seq_item tx_full_seq_item;
 
-        function new(string name = "uart_sys_full_sequence");
+        function new(string name = "uart_sys_tx_full_sequence");
             super.new(name);
         endfunction
 
         task pre_body;
-            full_seq_item = uart_sys_seq_item::type_id::create("full_seq_item");
+            tx_full_seq_item = uart_sys_seq_item::type_id::create("tx_full_seq_item");
         endtask
 
         task body;
             repeat(1000) begin
-                start_item(full_seq_item);
-                    full_seq_item.full_seq = 1;
-                    assert(full_seq_item.randomize());
-                finish_item(full_seq_item);
+                start_item(tx_full_seq_item);
+                    tx_full_seq_item.tx_full_seq = 1;
+                    assert(tx_full_seq_item.randomize());
+                finish_item(tx_full_seq_item);
+            end
+        endtask
+    endclass
+
+    class uart_sys_rx_full_sequence extends uvm_sequence #(uart_sys_seq_item);
+        `uvm_object_utils(uart_sys_rx_full_sequence)
+
+        uart_sys_seq_item rx_full_seq_item;
+
+        function new(string name = "uart_sys_rx_full_sequence");
+            super.new(name);
+        endfunction
+
+        task pre_body;
+            rx_full_seq_item = uart_sys_seq_item::type_id::create("rx_full_seq_item");
+        endtask
+
+        task body;
+            repeat(10000) begin
+                start_item(rx_full_seq_item);
+                    rx_full_seq_item.rx_full_seq = 1;
+                    assert(rx_full_seq_item.randomize());
+                finish_item(rx_full_seq_item);
             end
         endtask
     endclass
