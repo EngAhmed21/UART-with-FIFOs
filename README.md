@@ -56,5 +56,24 @@ Test Methodology:
 - In the UVM environment, I use the environments of the components in the environment of the UART System to use the scoreboards and coverage collectors of the components to ease finding the source of errors.                                                                                                                                                                                          
 
 Simulation Results:                                                                                                                                                                                                                                              
-- Waveform
-  
+ - Waveform
+   
+  ![Waveform](https://github.com/EngAhmed21/UART-with-FIFOs/assets/90782588/951b029f-a765-42ad-98c8-32e7424fdcee)
+
+ - Transcript
+   
+   ![T1](https://github.com/EngAhmed21/UART-with-FIFOs/assets/90782588/1b274b80-56fd-40b3-aab6-c3073d4f5c14)
+   ![T2](https://github.com/EngAhmed21/UART-with-FIFOs/assets/90782588/fafae0d6-55c7-4b00-946e-b18e941c2321)
+
+ - Functional Coverage
+   
+![coverage](https://github.com/EngAhmed21/UART-with-FIFOs/assets/90782588/75e62b1b-ffe8-4156-9997-121ae11cf4c1)
+
+ - Assertions
+
+![Assertions](https://github.com/EngAhmed21/UART-with-FIFOs/assets/90782588/706b2d6c-c086-4c37-b8bb-2f232b043845)
+![Assertions2](https://github.com/EngAhmed21/UART-with-FIFOs/assets/90782588/29c49d1d-a42d-48a1-893c-d01fe3d09452)
+
+ - Coverage Directives
+
+   ![Cover_directives](https://github.com/EngAhmed21/UART-with-FIFOs/assets/90782588/020a6ee5-38d2-44db-9cf4-9cd2e00bcd12)
