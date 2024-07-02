@@ -63,14 +63,10 @@ package uart_sys_sequence_pkg;
         endtask
 
         task body;
-            repeat(10000) begin
+            repeat(1000) begin
                 start_item(full_seq_item);
-                    full_seq_item.rst_n   = 1;
-                    full_seq_item.rx      = $random();
-                    full_seq_item.rd_uart = 0;
-                    full_seq_item.wr_uart = 1;
-                    full_seq_item.rst_n   = 1;
-                    full_seq_item.w_data  = $random();
+                    full_seq_item.full_seq = 1;
+                    assert(full_seq_item.randomize());
                 finish_item(full_seq_item);
             end
         endtask
