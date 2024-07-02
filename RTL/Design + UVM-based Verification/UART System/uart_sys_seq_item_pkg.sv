@@ -8,9 +8,11 @@ package uart_sys_seq_item_pkg;
     class uart_sys_seq_item extends uvm_sequence_item;
         `uvm_object_utils(uart_sys_seq_item)
 
-        rand bit rst_n, rx, rd_uart;
+        rand bit rst_n, rx, rd_uart, wr_uart;
         rand bit [DBIT-1:0] w_data;
-        bit rx_empty, tx_full, wr_uart, w_data_r, rd_uart_past;
+        bit [DBIT-1:0] w_data_past;
+        bit rx_empty, tx_full, w_data_r, rd_uart_past, full_seq, wr_i;
+        bit [1:0] wr_uart_past;
         logic tx;
         logic [DBIT-1:0] r_data;
 
@@ -22,7 +24,18 @@ package uart_sys_seq_item_pkg;
                 rx dist {0 := 40, 1 := 60};
         }
         constraint rd_uart_c {
-            (rd_uart == (~rx_empty));
+            if (full_seq)
+                (rd_uart == 0);
+            else
+                (rd_uart == (~rx_empty));
+        }
+        constraint wr_uart_c {
+            if (full_seq)
+                $onehot({wr_uart_past, wr_uart});
+        }
+        constraint w_data_c {
+            if (full_seq && (~wr_uart))
+                (w_data == w_data_past);
         }
 
         function void pre_randomize();
@@ -36,23 +49,38 @@ package uart_sys_seq_item_pkg;
             rd_uart_past = rd_uart;
 
             // w_data
-            if ((tx_cs == IDLE) && (~w_data_r)) begin
-                w_data.rand_mode(1);
-                wr_uart = 1;
+            if (~full_seq) begin
+                wr_uart.rand_mode(0);
+                if ((tx_cs == IDLE) && (~w_data_r)) begin
+                    w_data.rand_mode(1);
+                    wr_uart = 1;
+                end
+                else begin
+                    w_data.rand_mode(0);
+                    wr_uart = 0;
+                end
             end
             else begin
-                w_data.rand_mode(0);
-                wr_uart = 0;
+                wr_uart.rand_mode(1);
+                w_data.rand_mode(1);
             end
 
             // w_data_r
             w_data_r = (tx_cs == IDLE);
         endfunction
 
+        function void post_randomize;
+            wr_uart_past[wr_i] = wr_uart;
+            wr_i++;
+            w_data_past = w_data;
+        endfunction
+
         function new (string name = "uart_sys_seq_item");
             super.new(name);
             w_data_r = 0;
             rd_uart_past = 0;
+            wr_i = 0;
+            full_seq = 0;
         endfunction
 
         function string convert2string_stim();
